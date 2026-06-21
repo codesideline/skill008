@@ -1,6 +1,7 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function LoginPage() {
@@ -31,28 +32,35 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c] flex items-center justify-center px-4">
+    <div className="flex min-h-screen items-center justify-center bg-[#F7F3E9] px-4 text-[#20201E]">
       <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <h1 className="font-mono text-lg font-bold text-white">
-            skill<span className="text-[#c8f040]">008</span>
-          </h1>
-          <p className="text-sm text-zinc-500 mt-2">Skills, issued.</p>
+        <div className="mb-8 text-center">
+          <Link href="/" className="font-mono text-lg font-bold tracking-tight">
+            skill
+            <span className="ml-0.5 rounded bg-[#F5B62B] px-1 text-[#20201E]">008</span>
+          </Link>
+          <p className="mt-3 text-sm text-[#6E685D]">
+            Sign in to train your next agent.
+          </p>
         </div>
 
         {sent ? (
-          <div className="bg-[#141418] border border-zinc-800 rounded-lg p-6 text-center">
-            <p className="text-white font-medium mb-2">Check your email</p>
-            <p className="text-sm text-zinc-400">
-              We sent a magic link to <span className="text-white">{email}</span>.
-              Click it to sign in.
+          <div className="rounded-2xl border border-[#E7DFCD] bg-white p-6 text-center shadow-sm">
+            <p className="mb-2 font-semibold">Check your email</p>
+            <p className="text-sm text-[#6E685D]">
+              We sent a magic link to{" "}
+              <span className="font-medium text-[#20201E]">{email}</span>. Click
+              it to sign in.
             </p>
           </div>
         ) : (
           <form onSubmit={handleLogin} className="space-y-4">
-            <div className="bg-[#141418] border border-zinc-800 rounded-lg p-6 space-y-4">
+            <div className="space-y-4 rounded-2xl border border-[#E7DFCD] bg-white p-6 shadow-sm">
               <div>
-                <label htmlFor="email" className="block text-xs uppercase tracking-wider text-zinc-500 mb-1.5">
+                <label
+                  htmlFor="email"
+                  className="mb-1.5 block font-mono text-xs uppercase tracking-wider text-[#8a8478]"
+                >
                   Email
                 </label>
                 <input
@@ -60,26 +68,24 @@ export default function LoginPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@company.com"
+                  placeholder="you@work.com"
                   required
-                  className="w-full bg-[#0a0a0c] border border-zinc-800 rounded px-3 py-2.5 text-white text-sm placeholder:text-zinc-600 focus:outline-none focus:border-[#c8f040] transition-colors"
+                  className="w-full rounded-lg border border-[#E7DFCD] bg-[#F7F3E9] px-3 py-2.5 text-sm placeholder:text-[#a8a294] focus:border-[#F5B62B] focus:outline-none"
                 />
               </div>
 
-              {error && (
-                <p className="text-sm text-red-400">{error}</p>
-              )}
+              {error && <p className="text-sm text-[#C9512C]">{error}</p>}
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#c8f040] text-[#0a0a0c] font-semibold py-2.5 rounded text-sm hover:bg-[#a0c030] transition-colors disabled:opacity-50"
+                className="w-full rounded-lg bg-[#F5B62B] py-2.5 text-sm font-semibold text-[#20201E] shadow-sm transition-colors hover:bg-[#E7A618] disabled:opacity-50"
               >
-                {loading ? "Sending..." : "Sign in with magic link"}
+                {loading ? "Sending..." : "Email me a magic link"}
               </button>
             </div>
 
-            <p className="text-xs text-zinc-600 text-center">
+            <p className="text-center text-xs text-[#8a8478]">
               No password needed. We send a one-time link to your email.
             </p>
           </form>

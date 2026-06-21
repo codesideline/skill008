@@ -7,7 +7,7 @@ export function ShareActions({ content, title }: { content: string; title: strin
     <div className="flex gap-3">
       <button
         onClick={() => navigator.clipboard.writeText(content)}
-        className="bg-[#c8f040] text-[#0a0a0c] font-semibold px-5 py-2.5 rounded text-sm hover:bg-[#a0c030] transition-colors"
+        className="rounded-lg bg-[#F5B62B] px-5 py-2.5 text-sm font-semibold text-[#20201E] shadow-sm transition-colors hover:bg-[#E7A618]"
       >
         Copy
       </button>
@@ -21,7 +21,7 @@ export function ShareActions({ content, title }: { content: string; title: strin
           a.click();
           URL.revokeObjectURL(url);
         }}
-        className="border border-zinc-700 text-zinc-300 px-5 py-2.5 rounded text-sm hover:border-zinc-500 transition-colors"
+        className="rounded-lg border border-[#20201E]/15 bg-white px-5 py-2.5 text-sm font-semibold text-[#20201E] transition-colors hover:border-[#20201E]/40"
       >
         Download .md
       </button>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ScreenRecorder } from "@/components/skill/ScreenRecorder";
 
 interface GeneratedSkill {
   title: string;
@@ -16,8 +17,12 @@ interface GeneratedSkill {
 
 export default function NewSkillPage() {
   const router = useRouter();
-  const [tab, setTab] = useState<"describe" | "screenshot">("describe");
+  const [tab, setTab] = useState<"describe" | "screenshot" | "recording">(
+    "describe"
+  );
   const [description, setDescription] = useState("");
+  const [recFrames, setRecFrames] = useState<string[]>([]);
+  const [recNote, setRecNote] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [generated, setGenerated] = useState<GeneratedSkill | null>(null);
@@ -28,10 +33,23 @@ export default function NewSkillPage() {
     setError(null);
 
     try {
-      const payload: Record<string, string> =
-        tab === "describe"
-          ? { type: "description", description }
-          : { type: "screenshot", screenshot: screenshotData, mediaType: screenshotType };
+      let payload: Record<string, unknown>;
+      if (tab === "describe") {
+        payload = { type: "description", description };
+      } else if (tab === "screenshot") {
+        payload = {
+          type: "screenshot",
+          screenshot: screenshotData,
+          mediaType: screenshotType,
+        };
+      } else {
+        payload = {
+          type: "recording",
+          frames: recFrames,
+          mediaType: "image/jpeg",
+          note: recNote,
+        };
+      }
 
       const res = await fetch("/api/generate", {
         method: "POST",
@@ -71,8 +89,8 @@ export default function NewSkillPage() {
             guardrails: generated.guardrails,
           },
           connectors: generated.tools_referenced,
-          input_type: tab,
-          original_input: description,
+          input_type: tab === "describe" ? "description" : tab,
+          original_input: tab === "recording" ? recNote : description,
         }),
       });
 
@@ -197,7 +215,7 @@ export default function NewSkillPage() {
               disabled={loading}
               className="bg-[#c8f040] text-[#0a0a0c] font-semibold px-5 py-2.5 rounded text-sm hover:bg-[#a0c030] transition-colors disabled:opacity-50"
             >
-              {loading ? "Saving..." : "Looks good \u2014 save it"}
+              {loading ? "Saving..." : "Looks good, save it"}
             </button>
             <button
               onClick={() => {
@@ -229,7 +247,8 @@ export default function NewSkillPage() {
           </p>
           <h1 className="text-2xl font-bold text-white">Show us the task</h1>
           <p className="text-sm text-zinc-400 mt-2">
-            Describe what you do, or screenshot the filter/report you check.
+            Describe what you do, screenshot the filter, or record yourself
+            doing it once.
           </p>
         </div>
 
@@ -254,6 +273,16 @@ export default function NewSkillPage() {
             }`}
           >
             Screenshot it
+          </button>
+          <button
+            onClick={() => setTab("recording")}
+            className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
+              tab === "recording"
+                ? "bg-zinc-800 text-white"
+                : "text-zinc-500 hover:text-zinc-300"
+            }`}
+          >
+            Record it
           </button>
         </div>
 
@@ -304,6 +333,25 @@ export default function NewSkillPage() {
           </div>
         )}
 
+        {/* Recording tab */}
+        {tab === "recording" && (
+          <div className="space-y-4">
+            <ScreenRecorder onFramesChange={setRecFrames} />
+            <div>
+              <label className="mb-1 block text-xs text-zinc-500">
+                Add a note (optional): what are you trying to do?
+              </label>
+              <textarea
+                value={recNote}
+                onChange={(e) => setRecNote(e.target.value)}
+                placeholder="I'm pulling partner deals with no activity in 14 days, then drafting a check-in to the partner contact."
+                rows={3}
+                className="w-full bg-[#141418] border border-zinc-800 rounded-lg px-4 py-3 text-white text-sm placeholder:text-zinc-600 focus:outline-none focus:border-[#c8f040] transition-colors resize-y"
+              />
+            </div>
+          </div>
+        )}
+
         {error && <p className="text-sm text-red-400 mt-4">{error}</p>}
 
         <button
@@ -311,7 +359,8 @@ export default function NewSkillPage() {
           disabled={
             loading ||
             (tab === "describe" && !description.trim()) ||
-            (tab === "screenshot" && !screenshotData)
+            (tab === "screenshot" && !screenshotData) ||
+            (tab === "recording" && recFrames.length === 0)
           }
           className="mt-6 bg-[#c8f040] text-[#0a0a0c] font-semibold px-5 py-2.5 rounded text-sm hover:bg-[#a0c030] transition-colors disabled:opacity-50"
         >

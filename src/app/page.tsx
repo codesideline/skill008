@@ -1,110 +1,402 @@
 import Link from "next/link";
+import { SiteNav, SiteFooter } from "@/components/site/SiteChrome";
+import { DoodleArrow, SalesforceLogo, HubSpotLogo } from "@/components/landing/Doodles";
+import { LandingShowcase } from "@/components/landing/LandingShowcase";
+import { verticals } from "@/lib/verticals";
+
+const steps = [
+  {
+    n: "1",
+    title: "Show it once",
+    desc: "Type what you do in your own words, or drop in a screenshot of the screen you use. No setup.",
+  },
+  {
+    n: "2",
+    title: "Check it reads right",
+    desc: "We say the steps back to you in plain English. Tweak anything that's not quite how you'd do it.",
+  },
+  {
+    n: "3",
+    title: "Put it to work",
+    desc: "You get a tidy little instruction file. Hand it to your AI and it runs the task, every time.",
+  },
+];
+
+const examples = [
+  "Sort my inbox before 9 am",
+  "Pull the Monday sales report",
+  "Flag invoices over $5,000",
+  "Find deals going quiet",
+  "Draft replies in my voice",
+  "Chase the follow ups I owe",
+  "Tidy up the job schedule",
+  "Sum up the team's updates",
+];
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#0a0a0c] text-white">
+    <div className="min-h-screen bg-[#F7F3E9] text-[#20201E]">
       {/* Nav */}
-      <nav className="fixed top-0 w-full px-6 py-4 flex items-center justify-between bg-[#0a0a0c]/90 backdrop-blur-md border-b border-zinc-800/50 z-50">
-        <div className="font-mono text-sm font-bold">
-          skill<span className="text-[#c8f040]">008</span>
-        </div>
-        <div className="flex items-center gap-6">
-          <Link href="/gallery" className="text-sm text-zinc-400 hover:text-white transition-colors">
-            Gallery
-          </Link>
-          <Link href="/auth/login" className="text-sm text-zinc-400 hover:text-white transition-colors">
-            Sign in
-          </Link>
-        </div>
-      </nav>
+      <SiteNav />
 
       {/* Hero */}
-      <section className="max-w-2xl mx-auto px-6 pt-40 pb-24 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold leading-tight tracking-tight mb-6">
-          Bring your own AI.<br />We teach it your job.
-        </h1>
-        <p className="text-lg text-zinc-400 max-w-lg mx-auto mb-10 leading-relaxed">
-          Skill008 turns the work you do by hand into a skill your AI agent runs for you.
-          Any assistant you already use. Your keys, never ours.
-        </p>
-        <div className="flex gap-3 justify-center flex-wrap">
-          <Link
-            href="/auth/login"
-            className="bg-[#c8f040] text-[#0a0a0c] font-semibold px-6 py-3 rounded-md text-sm hover:bg-[#a0c030] transition-colors"
-          >
-            Make your first skill — free
-          </Link>
-          <Link
-            href="/gallery"
-            className="border border-zinc-700 text-zinc-300 px-6 py-3 rounded-md text-sm hover:border-zinc-500 hover:text-white transition-colors"
-          >
-            Browse gallery
-          </Link>
+      <section className="mx-auto grid max-w-6xl items-center gap-12 px-6 pb-16 pt-16 md:grid-cols-2 md:pb-24 md:pt-24">
+        <div>
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#E7DFCD] bg-white px-3 py-1">
+            <span className="h-2 w-2 rounded-full bg-[#F5B62B]" />
+            <span className="font-mono text-xs uppercase tracking-widest text-[#6E685D]">
+              Meet your next agent
+            </span>
+          </div>
+          <h1 className="font-heading text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl">
+            Train your next agent to do your busy work.
+          </h1>
+          <p className="mt-6 max-w-md text-lg leading-relaxed text-[#56514a]">
+            You already have an AI helper on your computer. Skill008 teaches it
+            the repetitive stuff you do every week, like checking the report or
+            sorting your inbox. Show it once. It does it for you from now on.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/auth/login"
+              className="rounded-lg bg-[#F5B62B] px-6 py-3 text-sm font-semibold text-[#20201E] shadow-sm transition-colors hover:bg-[#E7A618]"
+            >
+              Make your first skill, it is free
+            </Link>
+            <Link
+              href="/gallery"
+              className="rounded-lg border border-[#20201E]/15 bg-white px-6 py-3 text-sm font-semibold text-[#20201E] transition-colors hover:border-[#20201E]/40"
+            >
+              See the examples
+            </Link>
+          </div>
+          <p className="mt-5 font-mono text-xs text-[#8a8478]">
+            No code · No passwords · No catch
+          </p>
+          <p className="mt-3 text-sm text-[#6E685D]">
+            New to this?{" "}
+            <Link
+              href="/learn"
+              className="font-semibold text-[#C9512C] underline decoration-[#F5B62B] decoration-2 underline-offset-2 hover:text-[#a83f1f]"
+            >
+              Start here, it takes 2 minutes
+            </Link>
+          </p>
         </div>
-      </section>
 
-      {/* How it works */}
-      <section className="max-w-2xl mx-auto px-6 py-20">
-        <p className="font-mono text-xs uppercase tracking-widest text-[#c8f040] mb-4">
-          // How it works
-        </p>
-        <h2 className="text-2xl font-bold mb-8">Three steps. That&apos;s it.</h2>
-        <div className="space-y-6">
-          {[
-            { n: "1", title: "Show it.", desc: "Describe your task or screenshot the CRM filter you already use." },
-            { n: "2", title: "Confirm it.", desc: "We read the criteria and say them back in plain English. You fix or approve." },
-            { n: "3", title: "Run it.", desc: "Get a skill that works in your assistant. Drop it in, run it forever." },
-          ].map((step) => (
-            <div key={step.n} className="flex gap-4 items-start">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full border border-[#c8f040]/30 bg-[#c8f040]/10 flex items-center justify-center font-mono text-xs font-bold text-[#c8f040]">
-                {step.n}
+        {/* Agent badge card */}
+        <div className="flex justify-center md:justify-end">
+          <div className="relative w-full max-w-sm rotate-1 rounded-2xl border border-[#E7DFCD] bg-white p-6 shadow-[0_12px_40px_-12px_rgba(32,32,30,0.25)]">
+            <span className="absolute -right-3 -top-3 rotate-12 rounded-md border-2 border-[#C9512C] px-2 py-0.5 font-mono text-xs font-bold uppercase tracking-wider text-[#C9512C] opacity-90">
+              Issued
+            </span>
+            <div className="flex items-center gap-4">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#F5B62B] text-xl">
+                <span aria-hidden>{"•‿•"}</span>
               </div>
               <div>
-                <h3 className="font-semibold text-white">{step.title}</h3>
-                <p className="text-sm text-zinc-400 mt-0.5">{step.desc}</p>
+                <p className="font-mono text-xs uppercase tracking-widest text-[#8a8478]">
+                  Agent
+                </p>
+                <p className="font-heading text-2xl font-extrabold leading-none">
+                  008
+                </p>
+                <p className="mt-1 text-sm text-[#6E685D]">Your AI, trained</p>
               </div>
             </div>
-          ))}
+            <div className="my-5 border-t border-dashed border-[#E7DFCD]" />
+            <dl className="space-y-3 text-sm">
+              <div className="flex items-center justify-between gap-4">
+                <dt className="font-mono text-xs uppercase tracking-wider text-[#8a8478]">
+                  Assignment
+                </dt>
+                <dd className="text-right font-medium">Monday sales report</dd>
+              </div>
+              <div className="flex items-center justify-between gap-4">
+                <dt className="font-mono text-xs uppercase tracking-wider text-[#8a8478]">
+                  Status
+                </dt>
+                <dd className="flex items-center gap-1.5 font-medium">
+                  <span className="h-2 w-2 rounded-full bg-[#5AA469]" />
+                  On duty
+                </dd>
+              </div>
+              <div className="flex items-center justify-between gap-4">
+                <dt className="font-mono text-xs uppercase tracking-wider text-[#8a8478]">
+                  Your data
+                </dt>
+                <dd className="font-medium text-[#20201E]">stays yours</dd>
+              </div>
+            </dl>
+          </div>
         </div>
       </section>
 
-      {/* Differentiators */}
-      <section className="max-w-2xl mx-auto px-6 py-20">
-        <p className="font-mono text-xs uppercase tracking-widest text-[#c8f040] mb-4">
-          // Why it&apos;s different
+      <LandingShowcase />
+
+      {/* Two ways in */}
+      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+        <p className="font-mono text-xs uppercase tracking-widest text-[#C9512C]">
+          Where do you fit?
         </p>
-        <div className="space-y-4">
-          {[
-            { title: "Bring your own harness.", desc: "Works with whatever AI you already pay for. You\u2019re never locked in." },
-            { title: "We never touch your keys.", desc: "We only write the instructions. Your assistant does the work with your access." },
-            { title: "Built for people, not terminals.", desc: "No code. No git. Screenshot, confirm, done." },
-          ].map((f) => (
-            <div key={f.title} className="bg-[#141418] border border-zinc-800 rounded-lg p-5">
-              <h3 className="font-semibold text-white mb-1">{f.title}</h3>
-              <p className="text-sm text-zinc-400">{f.desc}</p>
+        <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight md:text-4xl">
+          Two easy ways to start.
+        </h2>
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {/* CRM card */}
+          <div className="rounded-2xl border border-[#E7DFCD] bg-white p-8 shadow-sm">
+            <div className="flex items-center gap-3">
+              <SalesforceLogo className="h-8 w-8" />
+              <HubSpotLogo className="h-7 w-7" />
+              <span className="font-mono text-[11px] uppercase tracking-wider text-[#8a8478]">
+                works with your CRM
+              </span>
+            </div>
+            <h3 className="mt-5 font-heading text-2xl font-extrabold">
+              CRM hygiene? We get it.
+            </h3>
+            <p className="mt-3 leading-relaxed text-[#56514a]">
+              Keep your pipeline clean without the busy work. Catch deals going
+              quiet, fix the missing fields, and chase the updates your boss asks
+              about, on autopilot.
+            </p>
+            <div className="mt-7 flex items-center gap-2">
+              <Link
+                href="/gallery"
+                className="rounded-lg bg-[#F5B62B] px-6 py-3 text-sm font-semibold text-[#20201E] shadow-sm transition-colors hover:bg-[#E7A618]"
+              >
+                Start here
+              </Link>
+              <DoodleArrow className="h-9 w-16 flex-shrink-0 text-[#C9512C]" />
+              <span className="-rotate-3 font-mono text-xs text-[#C9512C]">
+                we mean it, start here
+              </span>
+            </div>
+          </div>
+
+          {/* Chief of Staff card */}
+          <div className="rounded-2xl border border-[#E7DFCD] bg-[#FBEFD0] p-8 shadow-sm">
+            <p className="font-mono text-[11px] uppercase tracking-wider text-[#8a8478]">
+              for everyone else
+            </p>
+            <h3 className="mt-3 font-heading text-2xl font-extrabold leading-tight">
+              Solo founder? Working parent? Tired of doing more with less?
+            </h3>
+            <p className="mt-3 leading-relaxed text-[#56514a]">
+              You need a Chief of Staff. Get one that sorts your inbox before
+              9 am, preps your day, and remembers the follow ups you forget.
+            </p>
+            <Link
+              href="/gallery"
+              className="mt-7 inline-block rounded-lg border border-[#20201E]/15 bg-white px-6 py-3 text-sm font-semibold text-[#20201E] transition-colors hover:border-[#20201E]/40"
+            >
+              Meet your Chief of Staff
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Train your agent: 3 steps */}
+      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+        <p className="font-mono text-xs uppercase tracking-widest text-[#C9512C]">
+          Train your agent
+        </p>
+        <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight md:text-4xl">
+          Three steps. Ten minutes. Done.
+        </h2>
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {steps.map((step) => (
+            <div
+              key={step.n}
+              className="rounded-2xl border border-[#E7DFCD] bg-white p-6 shadow-sm"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F5B62B] font-heading text-lg font-extrabold text-[#20201E]">
+                {step.n}
+              </div>
+              <h3 className="mt-4 font-heading text-xl font-bold">{step.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#6E685D]">
+                {step.desc}
+              </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Closing CTA */}
-      <section className="max-w-2xl mx-auto px-6 py-24 text-center">
-        <h2 className="text-2xl font-bold mb-3">
-          You already have the agent.<br />Hand it the dossier.
+      {/* Think of it like this (compact) */}
+      <section className="bg-[#FBEFD0]">
+        <div className="mx-auto max-w-3xl px-6 py-10 text-center">
+          <h2 className="font-heading text-xl font-bold">Think of it like this.</h2>
+          <p className="mx-auto mt-2 max-w-2xl text-[15px] leading-relaxed text-[#56514a]">
+            Your AI assistant is like a sharp new hire. Eager and quick, but it
+            does not know how you do things yet. Skill008 writes the one-page
+            training note that turns &ldquo;smart&rdquo; into &ldquo;actually
+            helpful,&rdquo; and hands it over for you.
+          </p>
+        </div>
+      </section>
+
+      {/* What can it learn */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+          <p className="font-mono text-xs uppercase tracking-widest text-[#C9512C]">
+            What can it learn
+          </p>
+          <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight md:text-4xl">
+            If you do it every week, it can learn it.
+          </h2>
+          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {examples.map((ex) => (
+              <div
+                key={ex}
+                className="flex items-center gap-3 rounded-xl border border-[#E7DFCD] bg-[#F7F3E9] px-4 py-4"
+              >
+                <span className="h-2.5 w-2.5 flex-shrink-0 rounded-full bg-[#F5B62B]" />
+                <span className="text-sm font-medium">{ex}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why it's safe */}
+      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+        <p className="font-mono text-xs uppercase tracking-widest text-[#C9512C]">
+          Why it is safe
+        </p>
+        <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight md:text-4xl">
+          We never see your stuff.
+        </h2>
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {[
+            {
+              title: "No passwords",
+              desc: "We never ask for a login to your email, your CRM, or anything else.",
+            },
+            {
+              title: "No data",
+              desc: "Your files and screenshots stay on your computer. They never reach us.",
+            },
+            {
+              title: "Your account, not ours",
+              desc: "The skill runs inside the AI you already use, with your own access.",
+            },
+          ].map((f) => (
+            <div
+              key={f.title}
+              className="rounded-2xl border border-[#E7DFCD] bg-white p-6 shadow-sm"
+            >
+              <h3 className="font-heading text-xl font-bold">{f.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#6E685D]">
+                {f.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-8 text-lg text-[#56514a]">
+          What we keep about your work:{" "}
+          <span className="font-bold text-[#20201E] [background:linear-gradient(transparent_55%,#F5B62B_55%)]">
+            absolutely nothing
+          </span>
+          .
+        </p>
+      </section>
+
+      {/* Starter packs + pricing */}
+      <section className="bg-[#FBEFD0]">
+        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-2 md:py-24">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-widest text-[#C9512C]">
+              Free starter packs
+            </p>
+            <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight">
+              Borrow one we already made.
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-[#56514a]">
+              Not sure where to start? Grab a ready-made skill, see how it works,
+              and make it yours. No account needed to look.
+            </p>
+            <Link
+              href="/gallery"
+              className="mt-6 inline-block rounded-lg border border-[#20201E]/15 bg-white px-6 py-3 text-sm font-semibold text-[#20201E] transition-colors hover:border-[#20201E]/40"
+            >
+              Browse the gallery
+            </Link>
+          </div>
+          <div>
+            <p className="font-mono text-xs uppercase tracking-widest text-[#C9512C]">
+              Simple pricing
+            </p>
+            <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight">
+              Start free.
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-[#56514a]">
+              Make your first skills on us. When you are ready for more, it is $7 a
+              skill. One-time. No subscription to forget about.
+            </p>
+            <Link
+              href="/auth/login"
+              className="mt-6 inline-block rounded-lg bg-[#F5B62B] px-6 py-3 text-sm font-semibold text-[#20201E] shadow-sm transition-colors hover:bg-[#E7A618]"
+            >
+              Make your first skill
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Built for your world */}
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <div className="text-center">
+          <p className="font-mono text-xs uppercase tracking-widest text-[#C9512C]">
+            Built for the way you work
+          </p>
+          <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight">
+            Pick the version that sounds like your week.
+          </h2>
+        </div>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {verticals.map((v) => (
+            <Link
+              key={v.slug}
+              href={`/for/${v.slug}`}
+              className="group flex flex-col rounded-2xl border border-[#E7DFCD] bg-white p-6 shadow-sm transition-colors hover:border-[#F5B62B]"
+            >
+              <p className="font-mono text-xs uppercase tracking-wider text-[#8a8478]">
+                {v.eyebrow}
+              </p>
+              <h3 className="mt-2 font-heading text-xl font-bold">
+                {v.name}{" "}
+                <span className="text-[#C9512C] transition-transform group-hover:translate-x-0.5">
+                  &rarr;
+                </span>
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#6E685D]">
+                {v.subhead}
+              </p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Closing */}
+      <section className="mx-auto max-w-3xl px-6 py-20 text-center md:py-28">
+        <h2 className="font-heading text-3xl font-extrabold tracking-tight md:text-5xl">
+          You already have the agent.
+          <br />
+          Show it the ropes.
         </h2>
         <Link
           href="/auth/login"
-          className="inline-block mt-6 bg-[#c8f040] text-[#0a0a0c] font-semibold px-6 py-3 rounded-md text-sm hover:bg-[#a0c030] transition-colors"
+          className="mt-8 inline-block rounded-lg bg-[#F5B62B] px-7 py-3.5 text-sm font-semibold text-[#20201E] shadow-sm transition-colors hover:bg-[#E7A618]"
         >
-          Make your first skill — free
+          Make your first skill, it is free
         </Link>
-        <p className="font-mono text-xs text-zinc-600 mt-4">Skill008 — skills, issued.</p>
+        <p className="mt-6 font-mono text-xs text-[#8a8478]">
+          skill008 · your next agent, trained.
+        </p>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-800 px-6 py-6 text-center text-xs text-zinc-600">
-        We never store your passwords, your data, or your screenshots. The skill runs in your tools, not ours.
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

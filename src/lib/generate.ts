@@ -4,7 +4,12 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-const model = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-20250514";
+const model = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6";
+
+export function hasAnthropicKey(): boolean {
+  const k = process.env.ANTHROPIC_API_KEY;
+  return !!k && k.startsWith("sk-ant");
+}
 
 export interface GeneratedSkill {
   title: string;
@@ -97,6 +102,49 @@ export async function generateSkillFromScreenshot(
   return { ...structured, markdown };
 }
 
+export async function generateSkillFromFrames(
+  frames: string[],
+  mediaType: "image/jpeg" | "image/png" = "image/jpeg",
+  note?: string
+): Promise<GeneratedSkill> {
+  const images = frames.slice(0, 8).map((data) => ({
+    type: "image" as const,
+    source: { type: "base64" as const, media_type: mediaType, data },
+  }));
+
+  const noteLine =
+    note && note.trim()
+      ? `\n\nThe person also described what they are doing: "${note.trim()}". Use it to disambiguate the workflow, but extract concrete criteria from the frames.`
+      : "";
+
+  const response = await anthropic.messages.create({
+    model,
+    max_tokens: 4096,
+    system: SYSTEM_PROMPT,
+    messages: [
+      {
+        role: "user",
+        content: [
+          ...images,
+          {
+            type: "text",
+            text:
+              "These frames are a screen recording of someone doing a task, in time order. Reconstruct the workflow: which app(s) they use, the filter or selection criteria visible, and each step in order. Then generate a skill. Extract criteria, field names, operators, and thresholds verbatim where you can see them." +
+              noteLine,
+          },
+        ],
+      },
+    ],
+  });
+
+  const text =
+    response.content[0].type === "text" ? response.content[0].text : "";
+  const structured = JSON.parse(text);
+  const markdown = renderSkillMarkdown(structured);
+
+  return { ...structured, markdown };
+}
+
 export async function generateChangelog(
   oldContent: string,
   newContent: string
@@ -113,6 +161,49 @@ export async function generateChangelog(
   });
 
   return response.content[0].type === "text" ? response.content[0].text : "";
+}
+
+export function getSampleSkill(): GeneratedSkill {
+  const structured = {
+    title: "Stale Deal Status Check",
+    goal: "Surface open deals with no recent activity so they get a follow-up before they go cold.",
+    when_to_use: "Every Monday morning, or before a pipeline review.",
+    criteria:
+      "Open opportunities where the stage is not Closed and the last activity was more than 14 days ago, sorted by amount with the largest first.",
+    steps: [
+      {
+        title: "Pull open deals",
+        description:
+          "Use the CRM connector to list opportunities that are still open (stage is not Closed Won or Closed Lost).",
+        order: 1,
+      },
+      {
+        title: "Filter to stale ones",
+        description: "Keep only deals with no logged activity in the last 14 days.",
+        order: 2,
+      },
+      {
+        title: "Rank by value",
+        description: "Sort the remaining deals from largest amount to smallest.",
+        order: 3,
+      },
+      {
+        title: "Draft a nudge",
+        description:
+          "For the top deals, draft a short, friendly check-in for the deal owner. Do not send it.",
+        order: 4,
+      },
+    ],
+    tools_referenced: ["salesforce"],
+    guardrails: [
+      "Never auto-send or change a record without the user confirming first",
+      "Never surface a secret, password, or API key in chat",
+      "Only draft messages; the user decides what actually goes out",
+    ],
+  };
+
+  const markdown = renderSkillMarkdown(structured);
+  return { ...structured, markdown };
 }
 
 function renderSkillMarkdown(skill: Omit<GeneratedSkill, "markdown">): string {

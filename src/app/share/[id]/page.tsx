@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
+import { SiteFooter } from "@/components/site/SiteChrome";
 import { ShareActions } from "@/components/skill/ShareActions";
 
 export default async function SharePage({
@@ -18,8 +19,8 @@ export default async function SharePage({
 
   if (!skill || skill.visibility === "private") {
     return (
-      <div className="min-h-screen bg-[#0a0a0c] flex items-center justify-center">
-        <p className="text-zinc-400">Skill not found or is private.</p>
+      <div className="flex min-h-screen items-center justify-center bg-[#F7F3E9]">
+        <p className="text-[#6E685D]">Skill not found or is private.</p>
       </div>
     );
   }
@@ -30,14 +31,14 @@ export default async function SharePage({
     .eq("skill_id", id);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c]">
-      <header className="border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="font-mono text-sm font-bold text-white">
-          skill<span className="text-[#c8f040]">008</span>
+    <div className="min-h-screen bg-[#F7F3E9] text-[#20201E]">
+      <header className="sticky top-0 z-50 flex items-center justify-between border-b border-[#E7DFCD] bg-[#F7F3E9]/85 px-6 py-4 backdrop-blur-md">
+        <Link href="/" className="font-mono text-base font-bold tracking-tight">
+          skill<span className="ml-0.5 rounded bg-[#F5B62B] px-1 text-[#20201E]">008</span>
         </Link>
         <Link
           href="/auth/login"
-          className="text-sm text-zinc-400 hover:text-white transition-colors"
+          className="text-sm text-[#6E685D] transition-colors hover:text-[#20201E]"
         >
           Sign in to fork
         </Link>
@@ -45,12 +46,14 @@ export default async function SharePage({
 
       <main className="max-w-2xl mx-auto px-6 py-12">
         <div className="mb-6">
-          <p className="font-mono text-xs uppercase tracking-widest text-[#c8f040] mb-2">
-            // Shared skill
+          <p className="mb-2 font-mono text-xs uppercase tracking-widest text-[#C9512C]">
+            Shared skill
           </p>
-          <h1 className="text-2xl font-bold text-white">{skill.title}</h1>
+          <h1 className="font-heading text-3xl font-extrabold tracking-tight">
+            {skill.title}
+          </h1>
           {skill.vertical && (
-            <span className="inline-block mt-2 text-xs font-mono uppercase tracking-wider text-[#c8f040] bg-[#c8f040]/10 px-2 py-0.5 rounded">
+            <span className="mt-2 inline-block rounded bg-[#FBEFD0] px-2 py-0.5 font-mono text-xs uppercase tracking-wider text-[#C9512C]">
               {skill.vertical}
             </span>
           )}
@@ -58,12 +61,12 @@ export default async function SharePage({
 
         {/* Connectors */}
         {connectors && connectors.length > 0 && (
-          <div className="flex items-center gap-2 mb-6 px-4 py-2.5 bg-[#141418] border border-zinc-800 rounded-lg">
-            <span className="text-xs text-zinc-500">Needs in your harness:</span>
+          <div className="mb-6 flex items-center gap-2 rounded-lg border border-[#E7DFCD] bg-white px-4 py-2.5">
+            <span className="text-xs text-[#8a8478]">Needs in your AI:</span>
             {connectors.map((c) => (
               <span
                 key={c.connector_key}
-                className="text-xs font-mono bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded"
+                className="rounded bg-[#EFE9DB] px-2 py-0.5 font-mono text-xs text-[#56514a]"
               >
                 {c.connector_key}
               </span>
@@ -72,8 +75,8 @@ export default async function SharePage({
         )}
 
         {/* Content */}
-        <div className="bg-[#141418] border border-zinc-800 rounded-lg p-6 mb-6">
-          <pre className="text-sm text-zinc-300 whitespace-pre-wrap font-mono leading-relaxed">
+        <div className="mb-6 rounded-xl border border-[#E7DFCD] bg-white p-6 shadow-sm">
+          <pre className="whitespace-pre-wrap font-mono text-sm leading-relaxed text-[#3a3631]">
             {skill.base_content}
           </pre>
         </div>
@@ -81,12 +84,13 @@ export default async function SharePage({
         {/* Actions */}
         <ShareActions content={skill.base_content} title={skill.title} />
 
-        <p className="text-xs text-zinc-700 mt-6">
+        <p className="mt-6 text-xs text-[#8a8478]">
           Skills are only as good as the data and access behind them. If a
           connector is missing or your CRM fields are messy, the results will be
           too.
         </p>
       </main>
+      <SiteFooter />
     </div>
   );
 }

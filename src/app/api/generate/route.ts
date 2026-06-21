@@ -1,5 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
-import { generateSkillFromDescription, generateSkillFromScreenshot } from "@/lib/generate";
+import {
+  generateSkillFromDescription,
+  generateSkillFromScreenshot,
+  generateSkillFromFrames,
+} from "@/lib/generate";
 import { scanForSecrets } from "@/lib/secret-scan";
 import { NextResponse } from "next/server";
 
@@ -39,9 +43,14 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
-  const { type, description, screenshot, mediaType } = body;
+  const { type, description, screenshot, mediaType, frames, note } = body;
 
-  if (!type || (type === "description" && !description) || (type === "screenshot" && !screenshot)) {
+  if (
+    !type ||
+    (type === "description" && !description) ||
+    (type === "screenshot" && !screenshot) ||
+    (type === "recording" && (!Array.isArray(frames) || frames.length === 0))
+  ) {
     return NextResponse.json(
       { error: "Missing required fields" },
       { status: 400 }
@@ -57,6 +66,12 @@ export async function POST(request: Request) {
       generated = await generateSkillFromScreenshot(
         screenshot,
         mediaType || "image/png"
+      );
+    } else if (type === "recording") {
+      generated = await generateSkillFromFrames(
+        frames,
+        mediaType || "image/jpeg",
+        typeof note === "string" ? note : undefined
       );
     } else {
       return NextResponse.json({ error: "Invalid type" }, { status: 400 });

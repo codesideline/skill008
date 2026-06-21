@@ -3,16 +3,25 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 
 export default async function DashboardPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  let user = null;
+  let skills: Array<{ id: string; title: string; vertical: string | null; revisions_used: number; revision_quota: number; updated_at: string }> | null = null;
 
-  if (!user) redirect("/auth/login");
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase.auth.getUser();
+    user = data?.user;
 
-  const { data: skills } = await supabase
-    .from("skills")
-    .select("*")
-    .eq("owner_id", user.id)
-    .order("updated_at", { ascending: false });
+    if (!user) redirect("/auth/login");
+
+    const { data: skillsData } = await supabase
+      .from("skills")
+      .select("*")
+      .eq("owner_id", user.id)
+      .order("updated_at", { ascending: false });
+    skills = skillsData;
+  } catch {
+    redirect("/auth/login");
+  }
 
   return (
     <div className="min-h-screen bg-[#0a0a0c]">

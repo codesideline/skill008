@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
-import { Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
+
+const sans = Plus_Jakarta_Sans({
+  variable: "--font-sans",
+  subsets: ["latin"],
+});
 
 const mono = Geist_Mono({
   variable: "--font-mono",
@@ -8,9 +14,10 @@ const mono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Skill008 — Skills, issued.",
+  metadataBase: new URL(SITE_URL),
+  title: "Skill008 · Train your next agent",
   description:
-    "Record a task once. Get a skill that runs in any harness, on any model. We never touch your data or your keys.",
+    "Teach the AI you already use to do your weekly busy work. Show it once, it runs the task from now on. No code, no passwords, your data stays yours.",
 };
 
 export default function RootLayout({
@@ -19,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${mono.variable} dark`}>
-      <body className="antialiased bg-[#0a0a0c] min-h-screen">{children}</body>
+    <html lang="en" className={`${sans.variable} ${mono.variable} scroll-smooth`}>
+      <body className="min-h-screen bg-[#F7F3E9] antialiased">{children}</body>
     </html>
   );
 }
