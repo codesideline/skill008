@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { scanForSecrets } from "@/lib/secret-scan";
+import { isQuotaError } from "@/lib/quota";
 import { NextResponse } from "next/server";
 
 // POST /api/skills - save a confirmed skill
@@ -53,6 +54,16 @@ export async function POST(request: Request) {
     .single();
 
   if (skillError) {
+    // The quota trigger raises this when the free limit is reached.
+    if (isQuotaError(skillError.message)) {
+      return NextResponse.json(
+        {
+          error:
+            "Free skill limit reached. Purchase additional skills for $7 each.",
+        },
+        { status: 403 },
+      );
+    }
     return NextResponse.json({ error: skillError.message }, { status: 500 });
   }
 
@@ -83,6 +94,37 @@ export async function POST(request: Request) {
     observed_apps: connectors || [],
     secret_scan_passed: true,
   });
+
+  // Persist a downloadable SKILL.md to Storage (owner-scoped, served later via
+  // signed URLs). Best-effort: the bucket may not exist before the migration.
+  try {
+    await supabase.storage
+      .from("skill-exports")
+      .upload(`${user.id}/${skill.id}.md`, base_content, {
+        upsert: true,
+        contentType: "text/markdown",
+      });
+  } catch {
+    // skill is already saved; the export file is a convenience
+  }
+
+  // Embed the skill so it can surface in semantic search once made public.
+  try {
+    const embedText = [title, structured_json?.goal, structured_json?.criteria]
+      .filter(Boolean)
+      .join("\n");
+    const { data: emb } = await supabase.functions.invoke("embed", {
+      body: { text: embedText },
+    });
+    if (emb?.embedding) {
+      await supabase
+        .from("skills")
+        .update({ embedding: emb.embedding })
+        .eq("id", skill.id);
+    }
+  } catch {
+    // embedding is best-effort; search simply won't include this skill yet
+  }
 
   return NextResponse.json({ skill });
 }
