@@ -289,7 +289,7 @@ export default function LearnPage() {
               href="/gallery"
               className="rounded-lg border border-[#20201E]/15 bg-white px-6 py-3 text-sm font-semibold text-[#20201E] transition-colors hover:border-[#20201E]/40"
             >
-              See the examples
+              See the skill examples
             </Link>
           </div>
         </section>

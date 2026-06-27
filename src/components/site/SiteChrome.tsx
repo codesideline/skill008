@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const navLinks = [
   { href: "/learn", label: "How it works" },
-  { href: "/gallery", label: "Examples" },
+  { href: "/gallery", label: "Skill examples" },
   { href: "/connect", label: "MCP servers" },
   { href: "/fde", label: "FDE jobs" },
   { href: "/job-seeker-cos", label: "Career coach" },
@@ -54,7 +54,7 @@ const footerColumns: {
     heading: "Product",
     links: [
       { href: "/auth/login", label: "Make a skill" },
-      { href: "/gallery", label: "Examples" },
+      { href: "/gallery", label: "Skill examples" },
       { href: "/connect", label: "MCP servers" },
       { href: "/fde", label: "FDE jobs" },
       { href: "/job-seeker-cos", label: "Career coach" },

@@ -49,7 +49,9 @@ export default function HomePage() {
             </span>
           </div>
           <h1 className="font-heading text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl">
-            Teach it once. It does the rest.
+            Teach it once.
+            <br />
+            It does the rest.
           </h1>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-[#56514a]">
             You already have an AI helper on your computer. Skill008 teaches it
@@ -67,7 +69,7 @@ export default function HomePage() {
               href="/gallery"
               className="rounded-lg border border-[#20201E]/15 bg-white px-6 py-3 text-sm font-semibold text-[#20201E] transition-colors hover:border-[#20201E]/40"
             >
-              See the examples
+              See the skill examples
             </Link>
           </div>
           <p className="mt-5 font-mono text-xs text-[#8a8478]">
@@ -418,7 +420,7 @@ export default function HomePage() {
                   href="/gallery"
                   className="text-sm font-semibold text-[#F7F3E9] underline decoration-[#F5B62B] decoration-2 underline-offset-4 hover:text-white"
                 >
-                  See the examples
+                  See the skill examples
                 </Link>
               </div>
             </div>

@@ -19,7 +19,7 @@ export default function GalleryPage() {
           <p className="mt-3 max-w-xl text-lg text-[#56514a]">
             Grab a ready-made skill and have your AI doing real work in minutes.
             Free, no setup, no account needed to look. Search by what you want
-            done, or browse the examples for your role.
+            done, or browse the skill examples for your role.
           </p>
         </div>
 
