@@ -283,6 +283,31 @@ export default async function VerticalPage({
           </div>
         </section>
 
+        {/* Companion deep-dive page, when present */}
+        {v.companion && (
+          <section className="mt-16">
+            <div className="flex flex-col gap-6 rounded-2xl border border-[#F5B62B] bg-[#FBEFD0] p-8 shadow-sm md:flex-row md:items-center md:justify-between md:p-10">
+              <div className="max-w-xl">
+                <p className="font-mono text-xs uppercase tracking-widest text-[#C9512C]">
+                  {v.companion.eyebrow}
+                </p>
+                <h2 className="mt-2 font-heading text-2xl font-extrabold tracking-tight">
+                  {v.companion.heading}
+                </h2>
+                <p className="mt-2 leading-relaxed text-[#56514a]">
+                  {v.companion.body}
+                </p>
+              </div>
+              <Link
+                href={v.companion.href}
+                className="inline-block flex-shrink-0 self-start rounded-lg bg-[#F5B62B] px-6 py-3 text-sm font-semibold text-[#20201E] shadow-sm transition-colors hover:bg-[#E7A618] md:self-auto"
+              >
+                {v.companion.cta}
+              </Link>
+            </div>
+          </section>
+        )}
+
         {/* Cross-links to other verticals */}
         <section className="mt-16">
           <h2 className="font-heading text-xl font-extrabold">

@@ -14,6 +14,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/learn/mcp", priority: 0.6 },
     { path: "/gallery", priority: 0.8 },
     { path: "/connect", priority: 0.9 },
+    { path: "/fde", priority: 0.8 },
+    { path: "/job-seeker-cos", priority: 0.8 },
     { path: "/faq", priority: 0.7 },
     { path: "/about", priority: 0.5 },
     { path: "/contact", priority: 0.5 },

@@ -45,7 +45,7 @@ export default function HomePage() {
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#E7DFCD] bg-white px-3 py-1">
             <span className="h-2 w-2 rounded-full bg-[#F5B62B]" />
             <span className="font-mono text-xs uppercase tracking-widest text-[#6E685D]">
-              Meet your next agent
+              Upskill your agent
             </span>
           </div>
           <h1 className="font-heading text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl">
@@ -377,12 +377,90 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* The spine: it is all upskilling */}
+      <section className="bg-[#20201E] text-[#F7F3E9]">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+          <div className="max-w-2xl">
+            <p className="font-mono text-xs uppercase tracking-widest text-[#F5B62B]">
+              The whole idea
+            </p>
+            <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight md:text-4xl">
+              It is all upskilling.
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-[#cfc8b8]">
+              The work is changing fast. Skill008 helps you stay ahead of it two
+              ways, and they rhyme: get the agent you already have better at your
+              job, and get yourself ready for the next one.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            {/* Path 1: upskill your agent */}
+            <div className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-8">
+              <p className="font-mono text-[11px] uppercase tracking-wider text-[#8a8478]">
+                Skills for your next agent
+              </p>
+              <h3 className="mt-3 font-heading text-2xl font-extrabold">
+                Upskill your agent.
+              </h3>
+              <p className="mt-3 flex-1 leading-relaxed text-[#cfc8b8]">
+                Teach the AI you already have to do your weekly busy work.
+                Describe a task once, get a skill, hand it over. That is
+                everything above.
+              </p>
+              <div className="mt-6 flex flex-wrap items-center gap-4">
+                <Link
+                  href="/auth/login"
+                  className="rounded-lg bg-[#F5B62B] px-5 py-2.5 text-sm font-semibold text-[#20201E] transition-colors hover:bg-[#E7A618]"
+                >
+                  Make a skill
+                </Link>
+                <Link
+                  href="/gallery"
+                  className="text-sm font-semibold text-[#F7F3E9] underline decoration-[#F5B62B] decoration-2 underline-offset-4 hover:text-white"
+                >
+                  See the examples
+                </Link>
+              </div>
+            </div>
+
+            {/* Path 2: upskill your career */}
+            <div className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-8">
+              <p className="font-mono text-[11px] uppercase tracking-wider text-[#8a8478]">
+                Skills for your next job
+              </p>
+              <h3 className="mt-3 font-heading text-2xl font-extrabold">
+                Upskill your career.
+              </h3>
+              <p className="mt-3 flex-1 leading-relaxed text-[#cfc8b8]">
+                Step into the jobs this shift is creating. See why Forward
+                Deployed Engineer is taking off and who is hiring, then put a
+                career coach in your corner for the search.
+              </p>
+              <div className="mt-6 flex flex-wrap items-center gap-4">
+                <Link
+                  href="/fde"
+                  className="rounded-lg bg-[#F5B62B] px-5 py-2.5 text-sm font-semibold text-[#20201E] transition-colors hover:bg-[#E7A618]"
+                >
+                  See the FDE path
+                </Link>
+                <Link
+                  href="/job-seeker-cos"
+                  className="text-sm font-semibold text-[#F7F3E9] underline decoration-[#F5B62B] decoration-2 underline-offset-4 hover:text-white"
+                >
+                  Meet the career coach
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Closing */}
       <section className="mx-auto max-w-3xl px-6 py-20 text-center md:py-28">
         <h2 className="font-heading text-3xl font-extrabold tracking-tight md:text-5xl">
-          You already have the agent.
+          Upskill your agent.
           <br />
-          Show it the ropes.
+          Upskill yourself.
         </h2>
         <Link
           href="/auth/login"

@@ -118,6 +118,33 @@ export default function ConnectPage() {
           exists, not a setup you have to do.
         </p>
 
+        {/* New to MCP? Start here. Unmissable callout. */}
+        <div className="mt-8 flex flex-col gap-4 rounded-2xl border-2 border-dashed border-[#F5B62B] bg-[#FBEFD0] p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-3">
+            <span
+              aria-hidden
+              className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#F5B62B] font-heading text-base font-extrabold text-[#20201E]"
+            >
+              ?
+            </span>
+            <div>
+              <p className="font-heading text-base font-bold">
+                Confused by any of this? Read about MCP servers first.
+              </p>
+              <p className="mt-1 text-sm leading-relaxed text-[#6E685D]">
+                A two minute, plain English explainer: what MCP is, and how to
+                connect safely before you plug anything in.
+              </p>
+            </div>
+          </div>
+          <Link
+            href="/learn/mcp"
+            className="inline-block flex-shrink-0 rounded-lg bg-[#20201E] px-5 py-2.5 text-center text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          >
+            Start here
+          </Link>
+        </div>
+
         {/* Logo map: quick jump */}
         <div className="mt-10">
           <p className="font-mono text-xs uppercase tracking-widest text-[#8a8478]">

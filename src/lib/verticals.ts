@@ -51,6 +51,13 @@ export type Vertical = {
     heading: string;
     sub: string;
   };
+  companion?: {
+    eyebrow: string;
+    heading: string;
+    body: string;
+    href: string;
+    cta: string;
+  };
 };
 
 export const verticals: Vertical[] = [
@@ -522,7 +529,7 @@ export const verticals: Vertical[] = [
   {
     slug: "job-helper",
     name: "Job search and career",
-    eyebrow: "For job seekers and career changers",
+    eyebrow: "For job seekers, career changers, and future FDEs",
     title: "AI Job Search Skills: Resume, Interviews, Follow-ups | Skill008",
     description:
       "More than a resume builder. Skills that tailor your resume to each job, prep you for interviews, track applications, and send the follow ups that get replies. Runs on your own accounts.",
@@ -571,6 +578,11 @@ export const verticals: Vertical[] = [
         connects: ["Email"],
       },
       {
+        title: "FDE story builder",
+        desc: "Turn your past rollouts and implementations into tight interview stories for Forward Deployed Engineer roles, one of the fastest-growing jobs in tech.",
+        connects: ["Docs"],
+      },
+      {
         title: "Cover letter drafter",
         desc: "From your resume and a job post, draft a specific cover letter that does not read like a template, for the roles that still want one.",
         connects: ["Docs", "Email"],
@@ -600,6 +612,11 @@ export const verticals: Vertical[] = [
           pain: "You need momentum and structure, fast.",
           fix: "Skills give the search a system, so progress does not depend on motivation alone.",
         },
+        {
+          name: "Breaking into FDE",
+          pain: "You can build and talk to people, but the deployment roles want proof you make things stick.",
+          fix: "Prep your implementation stories and ship a skill or two to show. See the FDE path for who is hiring.",
+        },
       ],
     },
     faq: [
@@ -619,6 +636,13 @@ export const verticals: Vertical[] = [
     cta: {
       heading: "Run your search like the project it is.",
       sub: "Start with the task that is slowing you down today.",
+    },
+    companion: {
+      eyebrow: "The deeper version",
+      heading: "Want the whole thing as one agent?",
+      body: "The Job Seeker Chief of Staff is a free, ready-made agent for Claude Desktop. Daily briefings, AIS scoring, a grade-my-LinkedIn flow, an 11-phase playbook, and a 14-day sprint. Copy the prompt and go.",
+      href: "/job-seeker-cos",
+      cta: "Meet the Job Seeker Chief of Staff",
     },
   },
   {

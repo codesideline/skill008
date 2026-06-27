@@ -40,12 +40,14 @@ export async function updateSession(request: NextRequest) {
     "/faq",
     "/about",
     "/contact",
+    "/fde",
+    "/job-seeker-cos",
     "/privacy",
     "/terms",
     "/sitemap.xml",
     "/robots.txt",
   ];
-  const publicPrefixes = ["/gallery", "/learn", "/share", "/for", "/connect"];
+  const publicPrefixes = ["/gallery", "/learn", "/share", "/for", "/connect", "/fde", "/job-seeker-cos"];
   const isPublicRoute =
     publicRoutes.includes(request.nextUrl.pathname) ||
     publicPrefixes.some((prefix) =>
