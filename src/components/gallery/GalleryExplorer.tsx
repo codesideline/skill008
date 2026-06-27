@@ -84,6 +84,7 @@ export function GalleryExplorer() {
           <Link
             key={s.title}
             href="/auth/login"
+            aria-label={`Make the ${s.title} skill`}
             className="group flex flex-col rounded-xl border border-[#E7DFCD] bg-white p-5 shadow-sm transition-colors hover:border-[#F5B62B]"
           >
             <h4 className="font-semibold">{s.title}</h4>

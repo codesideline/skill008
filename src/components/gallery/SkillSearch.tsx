@@ -52,7 +52,13 @@ export function SkillSearch() {
   return (
     <section className="mb-12">
       <form onSubmit={runSearch} className="flex gap-2">
+        <label htmlFor="skill-search" className="sr-only">
+          Search skills by what you want to get done
+        </label>
         <input
+          id="skill-search"
+          type="search"
+          name="skill-search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search skills by what you want to get done..."

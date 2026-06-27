@@ -100,7 +100,7 @@ export function LandingShowcase() {
                       href={`/for/${u.slug}`}
                       className="mt-5 inline-block text-sm font-semibold text-[#C9512C] underline decoration-[#F5B62B] decoration-2 underline-offset-2 hover:text-[#a83f1f]"
                     >
-                      See the {u.persona} skills &rarr;
+                      {`See the ${u.persona} skills →`}
                     </Link>
                   </div>
                 ))}
@@ -230,10 +230,11 @@ export function LandingShowcase() {
             ))}
             <Link
               href={`/for/${active.slug}`}
+              aria-label={`See the full ${label(active.slug, active.name)} page`}
               className="flex min-h-[272px] w-72 shrink-0 snap-start flex-col items-start justify-center rounded-2xl border border-dashed border-[#C9512C]/40 bg-white p-5 text-[#C9512C] transition-colors hover:border-[#C9512C]"
             >
               <span className="font-heading text-lg font-bold leading-tight">
-                See the full {label(active.slug, active.name)} page
+                {`See the full ${label(active.slug, active.name)} page`}
               </span>
               <span className="mt-2 text-sm">
                 All the skills, the tools, and the FAQ &rarr;
