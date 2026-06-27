@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Skill008 · Train your next agent",
   description:
-    "Teach the AI you already use to do your weekly busy work. Show it once, it runs the task from now on. No code, no passwords, your data stays yours.",
+    "Teach the AI you already use to handle your weekly routine. Show it once, it runs the task from now on. No code, no passwords, your data stays yours.",
 };
 
 export default function RootLayout({

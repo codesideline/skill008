@@ -49,12 +49,12 @@ export default function HomePage() {
             </span>
           </div>
           <h1 className="font-heading text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl">
-            Train your next agent to do your busy work.
+            Teach it once. It does the rest.
           </h1>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-[#56514a]">
             You already have an AI helper on your computer. Skill008 teaches it
-            the repetitive stuff you do every week, like checking the report or
-            sorting your inbox. Show it once. It does it for you from now on.
+            the things you repeat every week, like checking the report or sorting
+            your inbox, so you can stop doing them by hand.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
@@ -156,7 +156,7 @@ export default function HomePage() {
               CRM hygiene? We get it.
             </h3>
             <p className="mt-3 leading-relaxed text-[#56514a]">
-              Keep your pipeline clean without the busy work. Catch deals going
+              Keep your pipeline clean without the manual upkeep. Catch deals going
               quiet, fix the missing fields, and chase the updates your boss asks
               about, on autopilot.
             </p>
@@ -403,7 +403,7 @@ export default function HomePage() {
                 Upskill your agent.
               </h3>
               <p className="mt-3 flex-1 leading-relaxed text-[#cfc8b8]">
-                Teach the AI you already have to do your weekly busy work.
+                Teach the AI you already have to handle your weekly routine.
                 Describe a task once, get a skill, hand it over. That is
                 everything above.
               </p>
